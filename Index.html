@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Appu 🎂💖</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Comic Sans MS', cursive;
+      background-color: #ffe6f0;
+      color: #333;
+      overflow-x: hidden;
+    }
+    header {
+      background: #ff99cc;
+      padding: 1rem;
+      text-align: center;
+      font-size: 2rem;
+      font-weight: bold;
+    }
+    .btn {
+      padding: 10px 20px;
+      background: #ff66a3;
+      color: white;
+      margin: 10px;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: transform 0.2s ease;
+    }
+    .btn:hover {
+      transform: scale(1.05);
+    }
+    .hero, .image-card, .reasons-box, .cake-popup {
+      text-align: center;
+      padding: 2rem;
+    }
+    .reasons-box {
+      background: #fff0f5;
+      max-width: 500px;
+      margin: auto;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #aaa;
+    }
+    canvas#stars, canvas#confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .floating-heart, .floating-image {
+      position: fixed;
+      z-index: 2;
+      animation: float 12s infinite ease-in-out alternate;
+    }
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100px) rotate(360deg); }
+    }
+
+    /* Surprise Button Container */
+    .surprise-button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      background: linear-gradient(to right, #ffe6f0, #ffd1ec);
+      z-index: 10;
+    }
+
+    #surpriseSection {
+      display: none;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Surprise Button First View -->
+<div id="introScreen" class="surprise-button-container">
+  <h1>🎁 Click to Unlock Your Birthday Surprise 🎁</h1>
+  <button class="btn" onclick="revealSurprise()">Open Surprise</button>
+</div>
+
+<!-- Surprise Content -->
+<div id="surpriseSection">
+
+  <header>🎂 Happy Birthday My Love 💖</header>
+
+  <canvas id="stars"></canvas>
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- Floating Images -->
+ <!-- Floating Hearts (instead of shorts and ring) -->
+<div class="floating-heart" style="top: 30%; left: 10%; font-size: 2.5rem;">❤️</div>
+<div class="floating-heart" style="top: 70%; left: 80%; font-size: 2.2rem;">💖</div>
+<div class="floating-heart" style="top: 50%; left: 50%; font-size: 3rem;">💕</div>
+
+  <section class="hero">
+    <h2><span class="typewriter">To My Beautiful Appu 🎂✨</span></h2>
+    <p>Every heartbeat, every smile, every moment — it’s all for you 💘</p>
+    <button class="btn" onclick="showLoveLetter()">💌 Read Your Love Letter</button>
+    <button class="btn" onclick="toggleMusic()">🎶 Play Lofi Vibes</button>
+    <button class="btn" onclick="launchConfetti()">🎊 Celebrate</button>
+    <button class="btn" onclick="toggleReasons()">❤️ 10 Reasons I Love You</button>
+  </section>
+
+  <div class="image-card">
+    <img src="https://i.imgur.com/kY3eR4B.jpg" alt="First Smile" style="width: 250px; border-radius: 20px; box-shadow: 0 0 20px pink;" />
+  </div>
+
+  <div class="reasons-box" id="reasonsBox" style="display:none;">
+    <h3>10 Reasons I Love You 💖</h3>
+    <ol>
+      <li>Your smile lights my world.</li>
+      <li>You make me laugh shamelessly.</li>
+      <li>You believe in me.</li>
+      <li>You accept my quirks.</li>
+      <li>Your kindness inspires me.</li>
+      <li>You hold me close.</li>
+      <li>You are my confidante.</li>
+      <li>Your creativity amazes me.</li>
+      <li>You understand my silence.</li>
+      <li>You are everything to me.</li>
+    </ol>
+  </div>
+
+  <div class="cake-popup" id="cakePopup">
+    <img src="https://img.icons8.com/emoji/96/birthday-cake-emoji.png" alt="Cake" />
+    <h2>🎉 Happy Birthday Babe! 🎉</h2>
+    <p>You’re the sweetest thing in the world 💖</p>
+    <button class="btn" onclick="document.getElementById('cakePopup').style.display='none'">Close</button>
+  </div>
+
+  <!-- 💌 Love Letter -->
+  <div class="love-popup" id="popup" style="display:none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); color: white; display: flex; justify-content: center; align-items: center;">
+    <div style="background: pink; padding: 2rem; border-radius: 20px; max-width: 600px; color: #000;">
+      <h2>To My Birthday Queen 🎈</h2>
+      <p>
+        My dearest love,<br /><br />
+        On your special day, I wish to wrap you in a thousand lines of love,<br />
+        code infinite smiles into your life, and run forever loops of hugs.<br /><br />
+        You’re the most beautiful script I’ve ever seen,<br />
+        the only logic that makes perfect sense to me.<br /><br />
+        Happy Birthday baby, I’ll always be your biggest fan and forever Valentine. 💘
+      </p>
+      <button class="btn" onclick="closeLoveLetter()">Close</button>
+    </div>
+  </div>
+
+</div>
+
+<audio id="lofiMusic" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a391e1b0b7.mp3?filename=lofi-chill-ambient-10962.mp3" type="audio/mpeg" />
+</audio>
+
+<script>
+  function revealSurprise() {
+    document.getElementById('introScreen').style.display = 'none';
+    document.getElementById('surpriseSection').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('cakePopup').style.display = 'block';
+    }, 5000);
+  }
+
+  function showLoveLetter() {
+    document.getElementById('popup').style.display = 'flex';
+  }
+
+  function closeLoveLetter() {
+    document.getElementById('popup').style.display = 'none';
+  }
+
+  function toggleMusic() {
+    const music = document.getElementById('lofiMusic');
+    music.paused ? music.play() : music.pause();
+  }
+
+  function toggleReasons() {
+    const box = document.getElementById('reasonsBox');
+    box.style.display = box.style.display === 'none' ? 'block' : 'none';
+  }
+
+  // 🎉 Confetti
+  const confettiCanvas = document.getElementById('confettiCanvas');
+  const ctx2 = confettiCanvas.getContext('2d');
+  confettiCanvas.width = window.innerWidth;
+  confettiCanvas.height = window.innerHeight;
+  let pieces = Array.from({ length: 100 }, () => ({
+    x: Math.random() * confettiCanvas.width,
+    y: Math.random() * confettiCanvas.height,
+    r: Math.random() * 6 + 4,
+    d: Math.random() * 30,
+    color: `hsl(${Math.random() * 360}, 100%, 70%)`,
+    tilt: Math.floor(Math.random() * 10) - 10,
+    tiltAngle: 0,
+    tiltAngleIncremental: Math.random() * 0.1 + 0.05,
+  }));
+  function drawConfetti() {
+    ctx2.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+    pieces.forEach((p) => {
+      ctx2.beginPath();
+      ctx2.lineWidth = p.r;
+      ctx2.strokeStyle = p.color;
+      ctx2.moveTo(p.x + p.tilt + p.r / 2, p.y);
+      ctx2.lineTo(p.x + p.tilt, p.y + p.tilt + p.r / 2);
+      ctx2.stroke();
+    });
+    updateConfetti();
+  }
+  function updateConfetti() {
+    pieces.forEach((p) => {
+      p.tiltAngle += p.tiltAngleIncremental;
+      p.y += (Math.cos(p.d) + 3 + p.r / 2) / 2;
+      p.x += Math.sin(p.d);
+      p.tilt = Math.sin(p.tiltAngle - p.d / 3) * 15;
+      if (p.y > confettiCanvas.height) {
+        p.y = -10;
+        p.x = Math.random() * confettiCanvas.width;
+      }
+    });
+  }
+  function launchConfetti() {
+    setInterval(drawConfetti, 30);
+  }
+
+  // 🌟 Stars
+  const starsCanvas = document.getElementById('stars');
+  const starsCtx = starsCanvas.getContext('2d');
+  starsCanvas.width = window.innerWidth;
+  starsCanvas.height = window.innerHeight;
+  const stars = Array(100).fill().map(() => ({
+    x: Math.random() * starsCanvas.width,
+    y: Math.random() * starsCanvas.height,
+    r: Math.random() * 1.5,
+    d: Math.random() * 100
+  }));
+  function drawStars() {
+    starsCtx.clearRect(0, 0, starsCanvas.width, starsCanvas.height);
+    starsCtx.fillStyle = "#fff";
+    starsCtx.beginPath();
+    stars.forEach(star => {
+      starsCtx.moveTo(star.x, star.y);
+      starsCtx.arc(star.x, star.y, star.r, 0, Math.PI * 2);
+    });
+    starsCtx.fill();
+  }
+  function animateStars() {
+    stars.forEach(s => {
+      s.y += (Math.sin(s.d) + 1) * 0.5;
+      if (s.y > starsCanvas.height) s.y = 0;
+    });
+    drawStars();
+    requestAnimationFrame(animateStars);
+  }
+  animateStars();
+
+  setInterval(() => {
+  const heart = document.createElement('div');
+  heart.className = 'floating-heart';
+  heart.textContent = '💗';
+  heart.style.left = Math.random() * 100 + 'vw';
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}, 800);
+
+</script>
+
+</body>
+</html>
