@@ -12,6 +12,24 @@
       color: #333;
       overflow-x: hidden;
     }
+
+    h1 {
+      color: #ff3399;
+      font-size: 3rem;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-out forwards;
+    }
+
+    p {
+      font-size: 1.3rem;
+      color: #555;
+      margin-bottom: 30px;
+      animation: fadeIn 2.5s ease-out forwards;
+    }
+
+    
+
+    
     header {
       background: #ff99cc;
       padding: 1rem;
@@ -81,13 +99,70 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+.gallery-wrapper {
+  width: 95%;
+  margin: 40px auto;
+  padding: 30px 10px;
+  background: #fff0f8;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(255, 182, 193, 0.2);
+}
+
+.carousel {
+  overflow: hidden;
+  border-radius: 20px;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  animation: scroll 30s linear infinite;
+}
+
+.image-slide {
+  flex: 0 0 100%;
+  text-align: center;
+  padding: 0 10px;
+}
+
+.image-slide img {
+  width: 50%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 8px 20px rgba(255, 182, 193, 0.3);
+}
+
+.caption {
+  font-size: 1.1rem;
+  color: #d63384;
+  margin-top: 10px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+@keyframes scroll {
+  0%   { transform: translateX(0%); }
+  20%  { transform: translateX(0%); }
+  25%  { transform: translateX(-100%); }
+  45%  { transform: translateX(-100%); }
+  50%  { transform: translateX(-200%); }
+  70%  { transform: translateX(-200%); }
+  75%  { transform: translateX(-300%); }
+  95%  { transform: translateX(-300%); }
+  100% { transform: translateX(-400%); }
+}
+
+
   </style>
 </head>
 <body>
 
 <!-- Surprise Button First View -->
 <div id="introScreen" class="surprise-button-container">
-  <h1>🎁 Click to Unlock Your Birthday Surprise 🎁</h1>
+  <h1>Hey Appu 💕</h1>
+  <p class="typewriter">A little magic is waiting for you inside... ✨</p>
   <button class="btn" onclick="revealSurprise()">Open Surprise</button>
 </div>
 
@@ -109,13 +184,41 @@
     <h2><span class="typewriter">To My Beautiful Appu 🎂✨</span></h2>
     <p>Every heartbeat, every smile, every moment — it’s all for you 💘</p>
     <button class="btn" onclick="showLoveLetter()">💌 Read Your Love Letter</button>
-    <button class="btn" onclick="toggleMusic()">🎶 Play Lofi Vibes</button>
+    <!-- <button class="btn" onclick="toggleMusic()">🎶 Play Lofi Vibes</button> -->
     <button class="btn" onclick="launchConfetti()">🎊 Celebrate</button>
     <button class="btn" onclick="toggleReasons()">❤️ 10 Reasons I Love You</button>
   </section>
 
   <div class="image-card">
-    <img src="https://i.imgur.com/kY3eR4B.jpg" alt="First Smile" style="width: 250px; border-radius: 20px; box-shadow: 0 0 20px pink;" />
+ <section id="gallery">
+    <h2>💞 Our Sweetest Memories</h2>
+    <div class="gallery-wrapper">
+      <div class="carousel">
+        <div class="carousel-track">
+          <div class="image-slide">
+            <img src="c:\Users\sumit\Downloads\Appu2.jpg" alt="You being cute 😘" />
+            <p class="caption">The moment I knew I'm lucky 💖</p>
+          </div>
+          <div class="image-slide">
+            <img src="c:\Users\sumit\Downloads\Appu3.jpg" alt="Sunset smiles" />
+            <p class="caption">Your smile lights up my world 🌅</p>
+          </div>
+          <div class="image-slide">
+            <img src="c:\Users\sumit\Downloads\Appu4.jpg" alt="Holding hands" />
+            <p class="caption">Forever hand-in-hand 🫶</p>
+          </div>
+          <div class="image-slide">
+            <img src="c:\Users\sumit\Downloads\Appu5.png" alt="Goofy us" />
+            <p class="caption">Us being silly, my fav hobby 💫</p>
+          </div>
+          <div class="image-slide">
+            <img src="c:\Users\sumit\Downloads\Appu6.jpg" alt="Cuddles" />
+            <p class="caption">Safe place = You 💗</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
   </div>
 
   <div class="reasons-box" id="reasonsBox" style="display:none;">
@@ -159,17 +262,36 @@
 
 </div>
 
-<audio id="lofiMusic" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_a391e1b0b7.mp3?filename=lofi-chill-ambient-10962.mp3" type="audio/mpeg" />
+<audio id="lofiMusic" autoplay loop>
+  <source src="c:\Users\sumit\Downloads\tainu-tadka-ravha-5610.mp3" type="audio/mpeg" />
 </audio>
 
+
 <script>
+
+  
+  window.addEventListener('load', () => {
+    const music = document.getElementById("lofiMusic");
+    music.play().catch((err) => {
+      console.log("Autoplay failed:", err);
+    });
+  });
+
+
   function revealSurprise() {
     document.getElementById('introScreen').style.display = 'none';
     document.getElementById('surpriseSection').style.display = 'block';
     setTimeout(() => {
       document.getElementById('cakePopup').style.display = 'block';
     }, 5000);
+
+
+     const music = document.getElementById("lofiMusic");
+  music.play().then(() => {
+    console.log("Music playing 🎶");
+  }).catch(err => {
+    console.error("Autoplay failed:", err);
+  });
   }
 
   function showLoveLetter() {
@@ -272,6 +394,42 @@
   document.body.appendChild(heart);
   setTimeout(() => heart.remove(), 8000);
 }, 800);
+
+
+let slideIndex = 1;
+showSlides(slideIndex);
+
+setInterval(() => {
+  plusSlides(1);
+}, 4000);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  let i;
+  const slides = document.getElementsByClassName("mySlides");
+  const dots = document.getElementsByClassName("dot");
+
+  if (n > slides.length) { slideIndex = 1 }
+  if (n < 1) { slideIndex = slides.length }
+
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+
+  for (i = 0; i < dots.length; i++) {
+    dots[i].classList.remove("active");
+  }
+
+  slides[slideIndex - 1].style.display = "block";
+  dots[slideIndex - 1].classList.add("active");
+}
 
 </script>
 
