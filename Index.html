@@ -114,11 +114,12 @@
   border-radius: 20px;
   position: relative;
 }
-
 .carousel-track {
   display: flex;
-  animation: scroll 30s linear infinite;
+  animation: scroll 40s linear infinite;
+  /* width: calc(100% * 8); 7 slides + 1 buffer for smooth loop */
 }
+
 
 .image-slide {
   flex: 0 0 100%;
@@ -143,16 +144,44 @@
 }
 
 @keyframes scroll {
-  0%   { transform: translateX(0%); }
-  20%  { transform: translateX(0%); }
-  25%  { transform: translateX(-100%); }
-  45%  { transform: translateX(-100%); }
-  50%  { transform: translateX(-200%); }
-  70%  { transform: translateX(-200%); }
-  75%  { transform: translateX(-300%); }
-  95%  { transform: translateX(-300%); }
-  100% { transform: translateX(-400%); }
+  0%    { transform: translateX(0%); }
+  12.5% { transform: translateX(-100%); }
+  25%   { transform: translateX(-200%); }
+  37.5% { transform: translateX(-300%); }
+  50%   { transform: translateX(-400%); }
+  62.5% { transform: translateX(-500%); }
+  75%   { transform: translateX(-600%); }
+  87.5% { transform: translateX(-700%); }
+  100%  { transform: translateX(-800%); }
 }
+
+.heart-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.floating-heart-anim {
+  position: absolute;
+  bottom: 0;
+  font-size: 1.8rem;
+  animation: floatUp 5s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) scale(1);
+    opacity: 0;
+  }
+}
+
 
 
   </style>
@@ -215,6 +244,14 @@
             <img src="assets/Images/Appu6.jpg" alt="Cuddles" />
             <p class="caption">Safe place = You 💗</p>
           </div>
+            <div class="image-slide">
+            <img src="assets/Images/Appu7 (1).jpg" alt="Cuddles" />
+            <p class="caption">Safe place = You 💗</p>
+          </div>
+            <div class="image-slide">
+            <img src="assets/Images/Appu8.jpg" alt="Cuddles" />
+            <p class="caption">Safe place = You 💗</p>
+          </div>
         </div>
       </div>
     </div>
@@ -261,6 +298,8 @@
   </div>
 
 </div>
+<div class="heart-container" id="heartContainer"></div>
+
 
 <audio id="lofiMusic" autoplay loop>
   <source src="assets/Audio/tainu-tadka-ravha-5610.mp3" type="audio/mpeg" />
@@ -268,6 +307,24 @@
 
 
 <script>
+
+function createFloatingHeart() {
+  const heart = document.createElement('div');
+  heart.className = 'floating-heart-anim';
+  heart.textContent = ['💖',  '💕', '❤️', '💗'][Math.floor(Math.random() * 5)];
+  heart.style.left = Math.random() * 100 + 'vw';
+  heart.style.fontSize = (Math.random() * 15 + 15) + 'px';
+  heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+  document.getElementById('heartContainer').appendChild(heart);
+
+  setTimeout(() => {
+    heart.remove();
+  }, 5000);
+}
+
+setInterval(createFloatingHeart, 300); // Adjust speed here
+
+
 
   
   window.addEventListener('load', () => {
